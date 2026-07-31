@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkpoint Alerts</title>
+  <meta name="description" content="Sobriety checkpoints across Ohio, mapped from official law-enforcement announcements.">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <header>
+    <h1>Checkpoint Alerts</h1>
+    <p>Ohio OVI checkpoints, mapped from official announcements</p>
+    <button id="panel-toggle" aria-expanded="true" aria-controls="panel">List</button>
+  </header>
+
+  <main>
+    <div id="map" role="application" aria-label="Map of announced checkpoints"></div>
+
+    <aside id="panel">
+      <section id="upcoming">
+        <h2>Announced</h2>
+        <ol class="checkpoints"></ol>
+        <p class="empty" hidden>Nothing announced right now. Agencies typically
+          publish a checkpoint a few days to a few hours ahead.</p>
+      </section>
+
+      <section id="past">
+        <h2>
+          Past
+          <label class="history-toggle">
+            <input type="checkbox" id="show-past"> show
+          </label>
+        </h2>
+        <ol class="checkpoints"></ol>
+      </section>
+
+      <footer>
+        <p>Every checkpoint here comes from a public announcement by the agency
+          running it &mdash; Ohio law requires checkpoints to be publicized in
+          advance. Nothing is user-reported.</p>
+        <p>Locations are as precise as the announcement: an address is a pin, a
+          stretch of road is a line, and a vague one says so.</p>
+        <p><a href="privacy.html">Privacy</a></p>
+      </footer>
+    </aside>
+  </main>
+
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

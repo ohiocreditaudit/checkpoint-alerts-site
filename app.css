@@ -1,0 +1,240 @@
+:root {
+  --ink: #1d222b;
+  --muted: #5c6470;
+  --line: #e3e6ea;
+  --paper: #ffffff;
+  --wash: #f5f6f8;
+  --active: #c22f3d;
+  --upcoming: #d97a1f;
+  --past: #7c8592;
+  --header-h: 3.5rem;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  height: var(--header-h);
+  padding: 0 1rem;
+  border-bottom: 1px solid var(--line);
+  align-items: center;
+}
+
+header h1 {
+  font-size: 1.05rem;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#panel-toggle {
+  margin-left: auto;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 0.35rem 0.8rem;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+#panel-toggle:hover { background: var(--wash); }
+
+main {
+  display: flex;
+  height: calc(100% - var(--header-h));
+}
+
+#map {
+  flex: 1;
+  min-width: 0;
+  background: var(--wash);
+}
+
+#panel {
+  width: 22rem;
+  flex-shrink: 0;
+  overflow-y: auto;
+  border-left: 1px solid var(--line);
+  padding: 0.75rem 1rem 1rem;
+}
+
+#panel.hidden { display: none; }
+
+#panel h2 {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 1rem 0 0.4rem;
+}
+
+#panel section:first-child h2 { margin-top: 0.25rem; }
+
+.history-toggle {
+  float: right;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+.history-toggle input { vertical-align: -0.1em; }
+
+#past.collapsed ol { display: none; }
+
+ol.checkpoints {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ol.checkpoints li {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.55rem 0.7rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+ol.checkpoints li:hover { background: var(--wash); }
+
+ol.checkpoints .where {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+ol.checkpoints .county::after {
+  content: " County";
+}
+
+ol.checkpoints .when {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: 0.1rem;
+}
+
+ol.checkpoints .dot {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  margin-right: 0.45em;
+  background: var(--past);
+  vertical-align: 0.05em;
+}
+
+li.active .dot { background: var(--active); }
+li.upcoming .dot { background: var(--upcoming); }
+li.past { opacity: 0.75; }
+
+.empty {
+  color: var(--muted);
+  font-size: 0.85rem;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  padding: 0.6rem 0.7rem;
+}
+
+#panel footer {
+  margin-top: 1.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+#panel footer p { margin: 0 0 0.6rem; }
+
+/* A running or upcoming checkpoint pulses; history sits still. */
+
+.live-pin {
+  background: var(--active);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.live-pin::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: var(--active);
+  opacity: 0.5;
+  animation: live-pulse 1.6s ease-out infinite;
+  z-index: -1;
+}
+
+@keyframes live-pulse {
+  from { transform: scale(1); opacity: 0.5; }
+  to { transform: scale(2.6); opacity: 0; }
+}
+
+/* Popups */
+
+.leaflet-popup-content { margin: 0.8rem 1rem; }
+
+.popup .where {
+  font-weight: 600;
+  margin: 0 0 0.1rem;
+}
+
+.popup .when, .popup .agency {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.popup .how {
+  margin: 0.55rem 0 0;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.popup .notes {
+  margin: 0.3rem 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.popup a {
+  display: inline-block;
+  margin-top: 0.55rem;
+  font-size: 0.85rem;
+  color: #1d5fa8;
+}
+
+@media (max-width: 700px) {
+  header p { display: none; }
+
+  main { flex-direction: column; }
+
+  #panel {
+    width: auto;
+    border-left: none;
+    border-top: 1px solid var(--line);
+    max-height: 45%;
+  }
+}
